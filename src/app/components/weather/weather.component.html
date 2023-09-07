@@ -1,0 +1,78 @@
+<div class="h-full w-full flex flex-col items-center justify-center">
+  <form #form="ngForm" class="relative mb-5" (submit)="onSubmit()">
+    <label for="Search" class="sr-only"> Search </label>
+
+    <input
+      type="text"
+      id="Search"
+      placeholder="Search for..."
+      class="w-full rounded-md outline-none border-gray-200 py-2.5 px-10 shadow-sm sm:text-sm"
+      [(ngModel)]="cityName"
+    />
+
+    <span class="absolute inset-y-0 end-0 grid w-10 place-content-center">
+      <button type="button" class="text-gray-600 hover:text-gray-700">
+        <span class="sr-only">Search</span>
+
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="h-4 w-4"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+          />
+        </svg>
+      </button>
+    </span>
+  </form>
+
+  <div *ngIf="weatherInfo" class="h-[80%] w-[70%] md:w-[50%] bg-slate-800 rounded-lg shadow-xl overflow-hidden">
+    <div class="h-[50%] relative">
+      <img *ngIf="toCelsius(weatherInfo.main.temp)>20" src="https://images.pexels.com/photos/912364/pexels-photo-912364.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" class=" h-full w-full object-cover object-left">
+      <img *ngIf="toCelsius(weatherInfo.main.temp)<=20" src="https://images.pexels.com/photos/125510/pexels-photo-125510.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" class=" h-full w-full object-cover object-left">
+      <div class="absolute bg-black/40 left-0 top-0 w-full h-full flex items-center justify-center text-center">
+        <div class=" text-white space-y-5">
+          <p class=" text-4xl font-medium">{{ weatherInfo.name }}</p>
+          <p class=" text-3xl font-bold">{{ toCelsius(weatherInfo.main.temp) }}°C</p>
+        </div>
+      </div>
+    </div>
+    <div class="h-[50%] grid grid-cols-2 justify-items-center gap-5 px-5 text-white">
+      <div class="flex items-center gap-8 justify-center w-[50%]">
+        <div class="flex flex-col items-center">
+          <img src="../../../assets/temperature.png" class="w-[40px]" alt="">
+          <p>min</p>
+        </div>
+        <p class="text-lg font-medium">{{ toCelsius(weatherInfo.main.temp_min) }}°C</p>
+      </div>
+      <div class="flex items-center gap-8 justify-center w-[50%]">
+        <div class="flex flex-col items-center">
+          <img src="../../../assets/hot.png" class="w-[40px]" alt="">
+          <p>max</p>
+        </div>
+        <p class="text-lg font-medium">{{ toCelsius(weatherInfo.main.temp_max) }}°C</p>
+      </div>
+      <div class="flex items-center gap-8 justify-center w-[50%]">
+        <div class="flex flex-col items-center">
+          <img src="../../../assets/humidity.png" class="w-[40px]" alt="">
+          <p>humidity</p>
+        </div>
+        <p class="text-lg font-medium">{{ weatherInfo.main.humidity }}%</p>
+      </div>
+      <div class="flex items-center gap-8 justify-center w-[50%]">
+        <div class="flex flex-col items-center">
+          <img src="../../../assets/wind.png" class="w-[40px]" alt="">
+          <p>wind</p>
+        </div>
+        <p class="text-lg font-medium">{{ weatherInfo.wind.speed }} km/h</p>
+      </div>
+    </div>
+  </div>
+
+</div>
